@@ -1,14 +1,103 @@
 comandos git: 
 
-remover um diretório local no git: 
+-> remover um diretório local no git: 
 * rm -rf .git 
 
-para adicionar / remover um diretório remoto:
+-> para adicionar / remover um diretório remoto:
 
 * git remote add origin https://github.com/marcogrella/Git-Studies.git
 * git remote remove origin
 
-clonar um repositorio para o local:
+-> clonar um repositorio para o local:
 * git clone htpps://...
+
+-> se movimentar entre branches diferentes. OBS: o -b cria uma nova branch 
+
+* git checkout -b nova-funcionalidade
+
+* git checkout nomedabranch
+
+-> para juntar 2 branches (utilizamos o git merge). Estando na branch de origem (principal, você chama a branch que quer fazer o merge). 
+
+ * git merge nova-funcionalidade 
+
+-> para visualizar em qual branch estamos:
+
+  * git branch
+
+a branch que estamos aparece em verde
+
+
+-> para alterar o nome da branch. Se mover para a branch e com o comando:
+ * git branch -m novonome
+
+-> alterar o nome de uma branch a partir de outra
+ * git branch -m nomeatual nomenovo
+
+-> deletar uma branch
+ * git branch -d nomedabranch
+
+
+OBS: quando formos mudar de branches, o ideal é sempre mudar de uma branch para outra sem levar arquivos de uma para outra e evitar que as branches 
+se contaminem com arquivos uma de outra. Para isso utilizaremos o stash.
+
+-> o comando git stash save faz com que tudo o que está na branch fique como se fosse numa caixinha. 
+-> para mostrar a lista de contextos salvos:
+ * git stash list 
+
+
+
+ Como salvamos o conteúdo nessa "caixinha" podemos mover para outras branches sem que haja o carregamento de arquivos de uma para outra. 
+Note que teremos uma lista dos contextos: 
+
+stash@{0}: WIP on nova-funcionalidade: 1f6877f Adiciona arquivo Comando2 na branch nova-funcionalidade
+stash@{1}: On funcionalidade-nova: Adicionado arquivos iniciando alteracoes
+
+-> Para "estourar" o contexto com os arquivos podemos utilizar o comando pop seguido do contexto:
+ * git stash pop 1
+
+-> para limpar o stash
+ * git stash clear 
+
+
+Visualização do histórico (registro cronológico de commits) 
+
+-> Para ver o histórico. 
+* git log 
+
+-> para ver o histórico somente de uma pasta ou arquivo: 
+* git log nomedapasta 'ou' nomedoarquivo 
+
+-> para mostrar o log de forma resumida:
+* git log --oneline
+
+-> para verificar de forma gráfica: 
+* git log --graph
+* gitk 
+
+
+Reversão de Commits (Comandos git revert x git reset)
+
+No uso de ambos os comandos podem ser especificados os SHAs (hash de commit) ou se orientar pelo HEAD 
+
+Esses comandos tem 3 variações: -- soft
+				-- mixed
+				-- hard 
+
+Ezxemplo: Caso tenhamos 3 commits, C1, C2 e C3 cada um irá ter seu sha específico. Supondo que C1 tenha o sha 123sfd12 
+Exemplo git reset 123sfd12 irá movimentar para pra C1 e os demais commits serão revertidos. 
+Podemos fazer isso com o comando orientado pela cabeça (HEAD) 
+Exemplo utilizando o HEAD seria git reset HEAD~1 então movimenta UM commit anterior. 
+
+Logo, a reversão destes commits alteram inclusive os arquivos e diretório no geral. 
+
+Um outro exemplo. Criamos um arquivo C4 e alteramos o arquivo 1, em seguida fazemos um commit (C4). Então o arquivo C4 que estava Untracked e o C1 que estava
+modified tornam se atualizados. Se utilizarmos o comando  git reset --soft HEAD~1 fará com que volte as alterações, voltam para o estágio como se antes do 
+git add .
+
+O comando git reset --mixed é parecido, volta os arquivos ao estado anterior (git reset --mixed HEAD~1Test)
+
+
+O comando git reset --hard HEAD~1 seria o mesmo que voltar um commit e excluir ou alterar as modifiações. tem que usar com muito cuidado para não fazer algo errado. 
 
 
