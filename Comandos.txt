@@ -1,0 +1,14 @@
+comandos git: 
+
+remover um diretório local no git: 
+* rm -rf .git 
+
+para adicionar / remover um diretório remoto:
+
+* git remote add origin https://github.com/marcogrella/Git-Studies.git
+* git remote remove origin
+
+clonar um repositorio para o local:
+* git clone htpps://...
+
+
